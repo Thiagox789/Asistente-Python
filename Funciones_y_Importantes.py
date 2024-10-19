@@ -13,7 +13,7 @@ comandos = {
     "abre navegador": "Abriendo el navegador.",
     "cierra navegador": "Cerrando el navegador.",
     "qué hora es": "Lo siento, no puedo decir la hora en este momento."
-    "Abrir youtube"
+    "Abrir youtube" "Abriendo youtube capo :)"
 }
 
 def hablar(texto):
