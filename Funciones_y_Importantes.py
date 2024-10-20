@@ -20,3 +20,15 @@ def hablar(texto):
     motor_voz.say(texto)  # Convertir texto a voz
     motor_voz.runAndWait()  # Esperar a que termine de hablar
 
+comandos = {
+    "hola": "¡Hola! ¿Cómo puedo ayudarte?",
+    "abre navegador": "Abriendo el navegador.",
+    "cierra navegador": "Cerrando el navegador.",
+    "salir": "Saliendo del asistente.",
+    "abrir youtube": "Abriendo YouTube.",  # Nuevo comando para abrir YouTube
+}
+
+preguntas_frecuentes = {
+    "qué es la inteligencia artificial": "La inteligencia artificial es una rama de la informática que se ocupa de crear sistemas que imitan la inteligencia humana.",
+    "quién es el presidente de argentina": "El presidente de Argentina es Javier Milei.",
+}
