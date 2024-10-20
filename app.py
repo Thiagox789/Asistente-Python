@@ -39,7 +39,9 @@ def Entender_Comandos(texto):
         print("No tengo un comando para eso.")
         voz.say("No tengo un comando para eso.")
         voz.runAndWait()
-        return True  # Mantener el bucle activo
+        return True 
+
+
 while True:
     with speech_recognition.Microphone(device_index=mic_id) as fuente:
         reconocedor.adjust_for_ambient_noise(fuente)  # Calibrar en ambientes ruidosos
