@@ -1,38 +1,49 @@
 from comandos import *
-# Función para entender y ejecutar comandos #
-def Entender_Comandos(texto):
-    texto = texto.lower()
+import tkinter as tk
+from tkinter import messagebox, font
 
-    for palabras_clave, funcion in comandos.items():
-        if any(palabra in texto for palabra in palabras_clave):
-            return funcion()  # Ejecuta la función correspondiente
-
-    print("No tengo un comando para eso.")
-    voz.say("No tengo un comando para eso.")
-    voz.runAndWait()
-    return True  # Continuar el bucle
-
-# Bucle principal #
-while True:
-    with sr.Microphone(device_index=mic_id) as fuente:
+def reconocer_voz():
+    with sr.Microphone() as fuente:
         reconocedor.adjust_for_ambient_noise(fuente)  # Calibrar en ambientes ruidosos
         print("Escuchando...")
+        voz.say("Escuchando, por favor habla.")
+        voz.runAndWait()
         audio = reconocedor.listen(fuente)
-
         try:
             texto = reconocedor.recognize_google(audio, language='es-ES')
             print(f"Has dicho: {texto}")
-
-            # Procesar el comando con la función
-            if not Entender_Comandos(texto):
-                break  # Salir del bucle si la función retorna False
-
+            # Procesar el comando
+            Entender_Comandos(texto)
         except sr.UnknownValueError:
-            print("No he entendido lo que dijiste.")
             voz.say("No he entendido lo que dijiste.")
             voz.runAndWait()
-
         except sr.RequestError:
-            print("No se pudo conectar al servicio de reconocimiento.")
             voz.say("No se pudo conectar al servicio de reconocimiento.")
             voz.runAndWait()
+
+# Crear ventana principal de Tkinter
+root = tk.Tk()
+root.title("Control de Voz")
+root.geometry("400x300")
+root.configure(bg="#f0f0f0")  # Color de fondo de la ventana
+
+# Crear un marco para organizar los elementos
+frame = tk.Frame(root, bg="#f0f0f0")
+frame.pack(pady=20)
+
+# Título de la aplicación
+titulo_font = font.Font(family="Arial", size=16, weight="bold")
+titulo = tk.Label(frame, text="Control de Voz", font=titulo_font, bg="#f0f0f0")
+titulo.pack(pady=10)
+
+# Crear botones con estilo
+btn_reconocer = tk.Button(frame, text="Iniciar Reconocimiento de Voz", command=reconocer_voz, 
+                          bg="#4CAF50", fg="white", font=("Arial", 12), padx=10, pady=5)
+btn_reconocer.pack(pady=10)
+
+btn_salir = tk.Button(frame, text="Salir", command=salir, 
+                      bg="#f44336", fg="white", font=("Arial", 12), padx=10, pady=5)
+btn_salir.pack(pady=10)
+
+# Iniciar el bucle de eventos de Tkinter
+root.mainloop()

@@ -2,6 +2,8 @@ import speech_recognition as sr
 import pyttsx3
 import subprocess
 import webbrowser
+import tkinter as tk
+from tkinter import messagebox
 
 # Variables #
 mic_id = 1
@@ -38,3 +40,15 @@ comandos = {
     ("abrir firefox", "abrir navegador", "abrir chrome"): abrir_firefox,
     ("abrir youtube",): abrir_youtube
 }
+
+def Entender_Comandos(texto):
+    texto = texto.lower()
+
+    for palabras_clave, funcion in comandos.items():
+        if any(palabra in texto for palabra in palabras_clave):
+            return funcion()  # Ejecuta la función correspondiente
+
+    print("No tengo un comando para eso.")
+    voz.say("No tengo un comando para eso.")
+    voz.runAndWait()
+    return True  # Continuar el bucle
